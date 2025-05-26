@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>विशेष रिचार्ज़ ऑफर!</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef1f5; /* Light corporate blue/grey */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .header {
+            width: 100%;
+            max-width: 600px;
+            background-color: #007bff; /* Jio Blue */
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 0 0 10px 10px; /* Rounded bottom corners if header is separate */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #ambaniGif {
+            max-width: 80%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 3px solid #ddd;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 1.5em;
+        }
+        h3 {
+            color: #555;
+            font-size: 1.1em;
+        }
+
+        .sender-name-display {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        .sender-name-display .name {
+            color: #d9534f; /* Reddish for emphasis */
+            font-weight: bold;
+            animation: blink 1.2s linear infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        input[type="text"] {
+            width: calc(100% - 24px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #28a745; /* Green for action */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838; /* Darker green */
+        }
+        button.secondary {
+            background-color: #007bff;
+        }
+        button.secondary:hover {
+            background-color: #0056b3;
+        }
+
+        .link-area {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
+        .link-area input[type="text"] {
+            width: calc(100% - 95px);
+            margin-bottom: 0;
+            background-color: #fff;
+        }
+        .link-area button {
+            width: 80px;
+            margin-left: 10px;
+            padding: 12px 10px;
+            font-size: 0.9em;
+        }
+
+        /* Recharge Success Screen Styles */
+        #rechargeSuccessScreen {
+            display: none; /* Hidden by default */
+            padding: 30px;
+            background-color: #fff; /* Light green for success */
+            border-radius: 10px;
+            color: #155724; /* Dark green text */
+        }
+        #rechargeSuccessScreen h2 {
+            color: #155724;
+            font-size: 1.8em;
+        }
+        #rechargeSuccessScreen p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        /* Firecracker Effect Styles */
+        .fireworks-container {
+            position: fixed; /* Changed to fixed to cover viewport */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows clicks to go through */
+            overflow: hidden; /* Prevents scrollbars if particles go out of bounds */
+            z-index: 9999;
+        }
+
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: burst 0.8s ease-out forwards;
+        }
+
+        @keyframes burst {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5) translate(var(--x), var(--y));
+                opacity: 0;
+            }
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Jio विशेष ऑफर!</h1>
+    </div>
+
+    <div class="container">
+        <!-- Recharge Success Screen -->
+        <div id="rechargeSuccessScreen">
+            <h2>🎉 बधाई हो! 🎉</h2>
+            <p>आपका नंबर सफलतापूर्वक रिचार्ज हो गया है!</p>
+            <img id="successGif" src="YOUR_MUKESH_AMBANI_GIF_URL_HERE" alt="Celebration" style="max-width: 70%; height: auto; border-radius: 8px; margin-bottom: 20px;">
+            <div id="successSenderInfo" class="sender-name-display"></div>
+            <p>यह ऑफर आगे भी शेयर करें!</p>
+            <button onclick="showSharingOptions()">दोस्तों को भी बताएं</button>
+        </div>
+
+        <!-- Main Content / Sharing Options -->
+        <div id="mainContent">
+            <div id="initialSenderInfo" class="sender-name-display">
+                <!-- Bhejne wale ka naam yahan dikhega -->
+            </div>
+
+            <img id="ambaniGif" src="YOUR_MUKESH_AMBANI_GIF_URL_HERE" alt="Mukesh Ambani Special Offer">
+
+            <h3>इस शानदार ऑफर को आगे भेजकर और लोगों को खुश करें!</h3>
+            <p>नीचे अपना नाम लिखें और शेयरिंग लिंक पाएं:</p>
+            <input type="text" id="userName" placeholder="अपना नाम यहाँ लिखें (Your Name Here)">
+            <button onclick="generateLink()">शेयरिंग लिंक बनाएं</button>
+
+            <div id="generatedLinkArea" class="link-area" style="display:none;">
+                <p>यह लिंक कॉपी करके अपने दोस्तों और परिवार को भेजें:</p>
+                <input type="text" id="sharingLink" readonly>
+                <button class="secondary" onclick="copyLink()">कॉपी</button>
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 Jio Special Offers. मनोरंजन के लिए बनाया गया।</p>
+        </div>
+    </div>
+
+    <!-- Firecracker container will be added here by JS -->
+    <div class="fireworks-container" id="fireworksContainer"></div>
+
+    <script>
+        const gifUrl = "https://media1.tenor.com/m/xbitsrUaL2MAAAAd/jio-mukesh-ambani.gif"; // <--- YEH URL APNE GIF SE BADLEIN
+        // IMPORTANT: Check if placeholder is still there
+        if (gifUrl === "YOUR_MUKESH_AMBANI_GIF_URL_HERE") {
+            alert("कृपया JavaScript code में 'YOUR_MUKESH_AMBANI_GIF_URL_HERE' को अपने GIF के URL से बदलें (ऊपर 'gifUrl' variable में)। HTML में भी दो जगह image src में इसे बदलें।");
+        }
+        document.getElementById('ambaniGif').src = gifUrl;
+        document.getElementById('successGif').src = gifUrl; // Same GIF for success screen
+
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const senderName = urlParams.get('sender');
+
+            const mainContentDiv = document.getElementById('mainContent');
+            const rechargeSuccessScreenDiv = document.getElementById('rechargeSuccessScreen');
+            const initialSenderInfoDiv = document.getElementById('initialSenderInfo');
+            const successSenderInfoDiv = document.getElementById('successSenderInfo');
+
+
+            if (senderName) {
+                const decodedSenderName = decodeURIComponent(senderName);
+                // This means the link was shared. Show "Recharge Complete" screen.
+                mainContentDiv.style.display = 'none';
+                rechargeSuccessScreenDiv.style.display = 'block';
+                successSenderInfoDiv.innerHTML = `यह ऑफर आपको <span class="name">${decodedSenderName}</span> द्वारा भेजा गया था!`;
+                triggerFireworks();
+            } else {
+                // This is the first visit or direct open. Show main content.
+                mainContentDiv.style.display = 'block';
+                rechargeSuccessScreenDiv.style.display = 'none';
+            }
+        };
+
+        function showSharingOptions() {
+            document.getElementById('rechargeSuccessScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            // Optionally, if the sender's name was shown on success screen,
+            // you might want to clear or update initialSenderInfoDiv if needed.
+            // For now, let's assume the user understands they are now generating a new link.
+            const initialSenderInfoDiv = document.getElementById('initialSenderInfo');
+            initialSenderInfoDiv.innerHTML = `<p>अब आप यह ऑफर आगे शेयर करने के लिए अपना नाम लिखें:</p>`;
+        }
+
+        function generateLink() {
+            const userNameInput = document.getElementById('userName');
+            const userName = userNameInput.value.trim();
+
+            if (userName === "") {
+                alert("कृपया अपना नाम लिखें।");
+                return;
+            }
+
+            const baseUrl = window.location.origin + window.location.pathname;
+            const newLink = `${baseUrl}?sender=${encodeURIComponent(userName)}`;
+
+            const generatedLinkArea = document.getElementById('generatedLinkArea');
+            const sharingLinkInput = document.getElementById('sharingLink');
+
+            sharingLinkInput.value = newLink;
+            generatedLinkArea.style.display = 'block';
+        }
+
+        function copyLink() {
+            const sharingLinkInput = document.getElementById('sharingLink');
+            sharingLinkInput.select();
+            sharingLinkInput.setSelectionRange(0, 99999); // For mobile
+
+            try {
+                document.execCommand('copy');
+                alert("लिंक कॉपी हो गया है! अब इसे अपने दोस्तों को भेजें।");
+            } catch (err) {
+                alert("कॉपी करने में विफल! कृपया मैनुअली कॉपी करें।");
+            }
+        }
+
+        // Firecracker Effect
+        function triggerFireworks() {
+            const fireworksContainer = document.getElementById('fireworksContainer');
+            fireworksContainer.innerHTML = ''; // Clear previous fireworks
+
+            const numParticles = 50; // Number of particles for the effect
+            const colors = ['#FF5733', '#FFC300', '#DAF7A6', '#7DCEA0', '#5DADE2', '#C39BD3'];
+
+            for (let i = 0; i < numParticles; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                // Random position within viewport (mostly upper half)
+                const startX = Math.random() * window.innerWidth;
+                const startY = Math.random() * window.innerHeight * 0.6; // Spawn in top 60%
+
+                particle.style.left = `${startX}px`;
+                particle.style.top = `${startY}px`;
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+                // Random trajectory
+                // --x and --y are CSS custom properties used by the animation
+                const angle = Math.random() * Math.PI * 2; // Random angle
+                const distance = 50 + Math.random() * 100; // Random distance
+                particle.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
+                particle.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
+
+                fireworksContainer.appendChild(particle);
+
+                // Remove particle after animation to prevent too many DOM elements
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 800); // Match animation duration
+            }
+        }
+    </script>
+</body>
+</html>
